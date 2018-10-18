@@ -1,0 +1,57 @@
+<html>
+<head>
+
+
+    <!-- Scripts for communicating with the SocketIO server -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/socket.io-1.4.5.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.11.1.min.js') }}"></script>
+
+<script>
+var socket = io.connect(
+    'http://' + document.domain + ':' + location.port + "{{namespace}}"
+);
+
+$(window).bind("beforeunload", function() {
+        socket.emit('leave');
+        socket.disconnect();
+    });
+
+{% if room -%}
+    socket.on('connect', function () {
+            socket.emit('join', {'room': '{{room}}'});
+        });
+{% endif -%}
+
+
+socket.on('reconnect', function () {
+    });
+
+socket.on('reconnecting', function () {
+    });
+
+socket.on('error', function (error) {
+    });
+
+</script>
+</head>
+
+
+<body>
+
+{% with namespace = "/chat" %}
+{% set room = 123 %}
+{% endwith%}
+<script>
+    socket.on('ping event',function (msg) {
+        console.log(msg)
+    })
+
+
+</script>
+
+
+</body>
+
+
+
+</html>
