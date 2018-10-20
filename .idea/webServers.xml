@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="c2d6d58f-2cb4-45c2-a983-c9d3f10e57dc" name="滴滴云" url="http://116.85.23.58">
+        <fileTransfer host="116.85.23.58" port="2222" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="2222" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="6ca8cbfb-0f76-474d-a28d-620e52f1cd90" name="95.4-ljf_darknet_2" url="http://10.18.95.4">
+        <fileTransfer host="10.18.95.4" port="12002" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="12002" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="06a6d9bb-9880-4148-9f1c-de59674bff02" name="95.4-ljf-3" url="http://10.18.95.4">
+        <fileTransfer host="10.18.95.4" port="12003" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="12003" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
