@@ -399,7 +399,7 @@ class Flask(_PackageBoundObject):
         #: the values are the function objects themselves.
         #: To register a view function, use the :meth:`route` decorator.
         self.view_functions = {}
-
+        # 函数和路由的字典
         #: A dictionary of all registered error handlers.  The key is ``None``
         #: for error handlers active on the application, otherwise the key is
         #: the name of the blueprint.  Each key points to another dictionary
@@ -1786,15 +1786,17 @@ class Flask(_PackageBoundObject):
            moved to the new :meth:`full_dispatch_request`.
         """
         req = _request_ctx_stack.top.request
+        # 将请求对象赋值给req
         if req.routing_exception is not None:
             self.raise_routing_exception(req)
-        rule = req.url_rule
+        rule = req.url_rule # 路由
         # if we provide automatic options for this URL and the
         # request came with the OPTIONS method, reply automatically
         if getattr(rule, 'provide_automatic_options', False) \
            and req.method == 'OPTIONS':
             return self.make_default_options_response()
         # otherwise dispatch to the handler for that endpoint
+        # view_functions 的形式 {'rule.endpoint':'function'}
         return self.view_functions[rule.endpoint](**req.view_args)
 
     def full_dispatch_request(self):
@@ -1804,14 +1806,16 @@ class Flask(_PackageBoundObject):
 
         .. versionadded:: 0.7
         """
+        # 方法内部将_got_first_request 属性置为True 默认为False   True代表程序开始处理请求了
         self.try_trigger_before_first_request_functions()
+        #进行发生真是请求前的处理
         try:
-            request_started.send(self)
-            rv = self.preprocess_request()
+            request_started.send(self) # socket部分的操作
+            rv = self.preprocess_request() #进行请求的预处理
             if rv is None:
-                rv = self.dispatch_request()
+                rv = self.dispatch_request() # 找到请求的路由对应的视图函数
         except Exception as e:
-            rv = self.handle_user_exception(e)
+            rv = self.handle_user_exception(e) #处理异常
         return self.finalize_request(rv)
 
     def finalize_request(self, rv, from_error_handler=False):
@@ -1827,10 +1831,12 @@ class Flask(_PackageBoundObject):
 
         :internal:
         """
-        response = self.make_response(rv)
+        response = self.make_response(rv) # 将函数进行处理 重新赋值
         try:
-            response = self.process_response(response)
+            response = self.process_response(response) 
+            # 请求处理完之后的一些操作 钩子
             request_finished.send(self, response=response)
+            # 和socket处理有关
         except Exception:
             if not from_error_handler:
                 raise
@@ -1887,7 +1893,7 @@ class Flask(_PackageBoundObject):
         """
         return False
 
-    def make_response(self, rv):
+    def make_response(self, rv):# 返回一个response_class 的实例对象
         """Convert the return value from a view function to an instance of
         :attr:`response_class`.
 
@@ -2100,6 +2106,7 @@ class Flask(_PackageBoundObject):
         :return: a new response object or the same, has to be an
                  instance of :attr:`response_class`.
         """
+        # 主要是处理一个after_request 的功能  
         ctx = _request_ctx_stack.top
         bp = ctx.request.blueprint
         funcs = ctx._after_request_functions
@@ -2288,14 +2295,19 @@ class Flask(_PackageBoundObject):
         try:
             try:
                 ctx.push()
-                response = self.full_dispatch_request() # 分发请求到路由
+                response = self.full_dispatch_request() 
+                # 起到了预处理和错误处理以及分发请求的作用
             except Exception as e:
                 error = e
-                response = self.handle_exception(e) # 异常处理
+                response = self.handle_exception(e)
+                # 如果有错误发生则生成错误响应
             except:
                 error = sys.exc_info()[1]
                 raise
-            return response(environ, start_response) # 返回相应
+            # 当返回response对象之后  会加上environ 和start_respone 参数并返回给
+            # 框架自带的wsgi server  
+            return response(environ, start_response) 
+            # 如果没回错误发生 则正常响应请求，返回响应内容
         finally:
             if self.should_ignore_error(error):
                 error = None
@@ -2305,6 +2317,8 @@ class Flask(_PackageBoundObject):
         """The WSGI server calls the Flask application object as the
         WSGI application. This calls :meth:`wsgi_app` which can be
         wrapped to applying middleware."""
+        """当http请求从server发送过过来的时候 会启动__call__功能 最终实际是调用了
+        wsgi_app功能并传入environ 和 start_response"""
         return self.wsgi_app(environ, start_response) # 传入的值是 请求上下文
 
     def __repr__(self):
