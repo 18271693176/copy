@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="滴滴云">
+  <component name="PublishConfigData" autoUpload="Always" serverName="root@10.18.95.4:12003">
     <serverData>
       <paths name="95.4-ljf-3">
         <serverdata>
@@ -16,6 +16,48 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="95.5-58">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="95.8-07  重构商店测试代码">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="root@10.18.95.4:12003">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/pycharm_project_44" local="$PROJECT_DIR$/../git_used" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="root@10.18.95.4:12003 (1)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="root@10.18.95.4:12003 (2)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="单机版">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="滴滴云">
         <serverdata>
           <mappings>
@@ -24,5 +66,6 @@
         </serverdata>
       </paths>
     </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>
